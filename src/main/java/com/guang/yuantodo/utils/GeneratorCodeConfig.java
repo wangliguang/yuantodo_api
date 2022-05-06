@@ -6,9 +6,7 @@ import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 
 public class GeneratorCodeConfig {
 
-
-    public static void main(String[] args) {
-
+    private static void fastAutoGeneratorCode() {
         FastAutoGenerator.create("jdbc:mysql://localhost:3306/yuantodo?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true", "root", "niepangg")
                 .globalConfig(builder -> {
                     System.out.println(System.getProperty("user.dir"));
@@ -21,7 +19,11 @@ public class GeneratorCodeConfig {
                     builder.parent("com.guang.yuantodo");
                 })
                 .strategyConfig(builder -> {
-                   builder.addInclude("todos");
+                    builder.addInclude("todos");
                 }).execute();
+    }
+
+    public static void main(String[] args) {
+        fastAutoGeneratorCode();
     }
 }
