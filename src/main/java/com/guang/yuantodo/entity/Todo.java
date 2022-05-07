@@ -1,8 +1,7 @@
 package com.guang.yuantodo.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import jdk.nashorn.internal.objects.annotations.Constructor;
-import lombok.AllArgsConstructor;
+import com.guang.yuantodo.enums.TodoTypeEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,7 +21,6 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @NoArgsConstructor
-
 public class Todo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,7 +30,7 @@ public class Todo implements Serializable {
 
     private Integer uId;
 
-    private String type;
+    private TodoTypeEnum type;
 
     private String check;
 

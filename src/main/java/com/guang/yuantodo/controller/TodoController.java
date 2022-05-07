@@ -2,6 +2,7 @@ package com.guang.yuantodo.controller;
 
 
 import com.guang.yuantodo.entity.Todo;
+import com.guang.yuantodo.enums.TodoTypeEnum;
 import com.guang.yuantodo.mapper.TodoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,7 @@ public class TodoController {
     public String create() {
         Todo todo = new Todo();
          todo.setContent("第一个todo");
+         todo.setType(TodoTypeEnum.IM_noUR);
          todoMapper.insert(todo);
         return todo.toString();
     }
