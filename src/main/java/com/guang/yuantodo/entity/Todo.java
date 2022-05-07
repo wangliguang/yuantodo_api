@@ -5,7 +5,11 @@ import com.guang.yuantodo.enums.TodoTypeEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.lang.NonNull;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.validation.beanvalidation.*;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -34,6 +38,7 @@ public class Todo implements Serializable {
 
     private String check;
 
+    @NotNull(message = "content为必填项")
     private String content;
 
     @TableField(value = "create_time", fill = FieldFill.INSERT)

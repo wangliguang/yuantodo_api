@@ -5,10 +5,14 @@ import com.guang.yuantodo.entity.Todo;
 import com.guang.yuantodo.mapper.TodoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -25,9 +29,9 @@ public class TodoController {
     @Autowired
     private TodoMapper todoMapper;
 
-    @RequestMapping("/create")
+    @PostMapping("/create")
     @Transactional
-    public String create(Todo todo, HttpServletResponse response) {
+    public String create(@Validated Todo todo, HttpServletResponse response) {
         todoMapper.insert(todo);
         return "";
     }
