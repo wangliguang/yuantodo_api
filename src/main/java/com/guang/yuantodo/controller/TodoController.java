@@ -4,6 +4,7 @@ package com.guang.yuantodo.controller;
 import com.guang.yuantodo.entity.Todo;
 import com.guang.yuantodo.mapper.TodoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +26,7 @@ public class TodoController {
     private TodoMapper todoMapper;
 
     @RequestMapping("/create")
+    @Transactional
     public String create(Todo todo, HttpServletResponse response) {
         todoMapper.insert(todo);
         return "";
