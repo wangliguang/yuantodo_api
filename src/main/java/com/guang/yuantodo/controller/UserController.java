@@ -41,7 +41,7 @@ public class UserController {
     public User register(@Validated @RequestBody User user, HttpServletResponse response) throws Exception {
         boolean isExist = userMapper.exists(new QueryWrapper<>(user));
         if (isExist) {
-            throw new Exception(ResultData.fail(ReturnCode.USERNAME_EXIST).toString());
+            throw new Exception(ReturnCode.USERNAME_EXIST.getMessage());
         }
         userMapper.insert(user);
         return user;
