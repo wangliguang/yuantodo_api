@@ -36,7 +36,7 @@ public class Todo implements Serializable {
 
     private TodoTypeEnum type;
 
-    private String check;
+    private Integer done;
 
     @NotNull(message = "content为必填项")
     private String content;
@@ -56,7 +56,7 @@ public class Todo implements Serializable {
                 "tId=" + tId +
                 ", uId=" + uId +
                 ", type='" + type + '\'' +
-                ", check='" + check + '\'' +
+                ", check='" + done + '\'' +
                 ", content='" + content + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +

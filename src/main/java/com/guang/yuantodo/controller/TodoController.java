@@ -7,13 +7,13 @@ import com.guang.yuantodo.mapper.TodoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -43,5 +43,13 @@ public class TodoController {
         todoMapper.delete(new QueryWrapper(todo));
         return "";
     }
+
+    @GetMapping("/queryAll")
+    public List<Todo> queryAll(HttpServletResponse response) {
+        List<Todo> todoList = todoMapper.selectList(null);
+        HashMap resultMap = new HashMap();
+        return todoList;
+    }
+
 }
 
