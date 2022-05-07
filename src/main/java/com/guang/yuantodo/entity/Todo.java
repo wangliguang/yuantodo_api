@@ -1,9 +1,14 @@
 package com.guang.yuantodo.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import jdk.nashorn.internal.objects.annotations.Constructor;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * <p>
@@ -11,17 +16,21 @@ import java.io.Serializable;
  * </p>
  *
  * @author 王立广
- * @since 2022-05-06
+ * @since 2022-05-07
  */
 @TableName("todos")
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Todo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(type = IdType.AUTO)
-      private String tId;
+      private Integer tId;
 
-    private String phone;
+    private Integer uId;
 
     private String type;
 
@@ -29,23 +38,30 @@ public class Todo implements Serializable {
 
     private String content;
 
-    private String curDate;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDate createTime;
+
+    @TableField(fill = FieldFill.UPDATE)
+    private LocalDate updateTime;
+
+    @TableLogic(delval = "1", value = "0")
+    private String deleted;
 
 
-    public String gettId() {
+    public Integer gettId() {
         return tId;
     }
 
-    public void settId(String tId) {
+    public void settId(Integer tId) {
         this.tId = tId;
     }
 
-    public String getPhone() {
-        return phone;
+    public Integer getuId() {
+        return uId;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setuId(Integer uId) {
+        this.uId = uId;
     }
 
     public String getType() {
@@ -72,23 +88,32 @@ public class Todo implements Serializable {
         this.content = content;
     }
 
-    public String getCurDate() {
-        return curDate;
+    public LocalDate getCreateTime() {
+        return createTime;
     }
 
-    public void setCurDate(String curDate) {
-        this.curDate = curDate;
+    public void setCreateTime(LocalDate createTime) {
+        this.createTime = createTime;
+    }
+
+    public LocalDate getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalDate updateTime) {
+        this.updateTime = updateTime;
     }
 
     @Override
     public String toString() {
         return "Todo{" +
         "tId=" + tId +
-        ", phone=" + phone +
+        ", uId=" + uId +
         ", type=" + type +
         ", check=" + check +
         ", content=" + content +
-        ", curDate=" + curDate +
+        ", createTime=" + createTime +
+        ", updateTime=" + updateTime +
         "}";
     }
 }
