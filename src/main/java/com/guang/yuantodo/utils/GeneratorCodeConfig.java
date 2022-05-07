@@ -18,7 +18,7 @@ public class GeneratorCodeConfig {
                     builder.parent("com.guang.yuantodo");
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("todos").addTableSuffix("s");
+                    builder.addInclude("user").addTableSuffix("s");
                 }).execute();
     }
 

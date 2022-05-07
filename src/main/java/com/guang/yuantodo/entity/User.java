@@ -35,7 +35,8 @@ public class User implements Serializable {
 
     private String userName;
 
-    @Pattern(regexp = "/^1(3\\d|4[5-9]|5[0-35-9]|6[2567]|7[0-8]|8\\d|9[0-35-9])\\d{8}$/")
+    @Pattern(regexp = "^\\d{11}$", message = "请输入正确的手机号")
+    @NotNull(message = "mobile不能为空")
     private String mobile;
 
     @NotNull(message = "password不能为空")
@@ -50,9 +51,12 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-        "uId=" + uId +
-        ", userName=" + userName +
-        ", password=" + password +
-        "}";
+                "uId=" + uId +
+                ", userName='" + userName + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", password='" + password + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

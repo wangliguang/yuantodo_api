@@ -24,9 +24,11 @@ public enum ReturnCode {
 
     INVALID_TOKEN(2001,"访问令牌不合法"),
     ACCESS_DENIED(2003,"没有权限访问该资源"),
-    CLIENT_AUTHENTICATION_FAILED(1001,"客户端认证失败"),
-    USERNAME_OR_PASSWORD_ERROR(1002,"用户名或密码错误"),
-    UNSUPPORTED_GRANT_TYPE(1003, "不支持的认证模式");
+    AUTHENTICATION_EXPIRE(1001,"token过期"),
+    AUTHENTICATION_FAILED(1002,"token认证失败"),
+    USERNAME_OR_PASSWORD_ERROR(1003,"用户名或密码错误"),
+    USERNAME_EXIST(1004,"该用户已存在"),
+    UNSUPPORTED_GRANT_TYPE(1005, "不支持的认证模式");
 
     /**自定义状态码**/
     private final int code;

@@ -31,7 +31,7 @@ public class TodoController {
 
     @PostMapping("/create")
     @Transactional
-    public String create(@Validated Todo todo, HttpServletResponse response) {
+    public String create(@Validated @RequestBody Todo todo, HttpServletResponse response) {
         todoMapper.insert(todo);
         return "";
     }
