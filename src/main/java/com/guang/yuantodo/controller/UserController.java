@@ -38,13 +38,13 @@ public class UserController {
 
     @PostMapping("/register")
     @Transactional
-    public String register(@Validated @RequestBody User user, HttpServletResponse response) throws Exception {
-        QueryWrapper<User> query = new QueryWrapper<>(user);
-        boolean isExist = userMapper.exists(query);
+    public User register(@Validated @RequestBody User user, HttpServletResponse response) throws Exception {
+        boolean isExist = userMapper.exists(new QueryWrapper<>(user));
         if (isExist) {
             throw new Exception(ResultData.fail(ReturnCode.USERNAME_EXIST).toString());
         }
-        return "";
+        userMapper.insert(user);
+        return user;
     }
 
     @PostMapping("/login")
