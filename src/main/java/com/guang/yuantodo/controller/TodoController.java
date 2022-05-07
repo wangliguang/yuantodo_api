@@ -1,6 +1,7 @@
 package com.guang.yuantodo.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guang.yuantodo.entity.Todo;
 import com.guang.yuantodo.mapper.TodoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,13 @@ public class TodoController {
     @Transactional
     public String create(@Validated @RequestBody Todo todo, HttpServletResponse response) {
         todoMapper.insert(todo);
+        return "";
+    }
+
+    @PostMapping("/delete")
+    @Transactional
+    public String delete(@RequestBody Todo todo, HttpServletResponse response) {
+        todoMapper.delete(new QueryWrapper(todo));
         return "";
     }
 }
