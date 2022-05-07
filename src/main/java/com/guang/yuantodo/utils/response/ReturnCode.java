@@ -28,7 +28,8 @@ public enum ReturnCode {
     AUTHENTICATION_FAILED(1002,"token认证失败"),
     USERNAME_OR_PASSWORD_ERROR(1003,"用户名或密码错误"),
     USERNAME_EXIST(1004,"该用户已存在"),
-    UNSUPPORTED_GRANT_TYPE(1005, "不支持的认证模式");
+    USERNAME_NO_EXIST(1005,"该用户不存在"),
+    UNSUPPORTED_GRANT_TYPE(1006, "不支持的认证模式");
 
     /**自定义状态码**/
     private final int code;

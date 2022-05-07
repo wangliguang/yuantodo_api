@@ -7,6 +7,7 @@ import com.guang.yuantodo.entity.Todo;
 import com.guang.yuantodo.entity.User;
 import com.guang.yuantodo.mapper.TodoMapper;
 import com.guang.yuantodo.mapper.UserMapper;
+import com.guang.yuantodo.utils.JwtToken;
 import com.guang.yuantodo.utils.response.ResultData;
 import com.guang.yuantodo.utils.response.ReturnCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +50,16 @@ public class UserController {
 
     @PostMapping("/login")
     @Transactional
-    public String login(@Validated User user, HttpServletResponse response) {
-        return "";
+    public User login(@Validated @RequestBody User user, HttpServletResponse response) throws Exception {
+        boolean isExist = userMapper.exists(new QueryWrapper<>(user));
+        if (isExist) {
+            User userInfo = new User();
+            userInfo.setMobile(user.getMobile());
+            userInfo.setToken(JwtToken.createToken());
+            userMapper.update(userInfo, new QueryWrapper<>(user));
+            return userMapper.selectOne(new QueryWrapper<>(user));
+        }
+        throw new Exception(ReturnCode.USERNAME_NO_EXIST.getMessage());
     }
 }
 

@@ -62,9 +62,9 @@ public class JwtToken {
      * @param sub
      * @return
      */
-    public static String createToken(String sub){
+    public static String createToken(){
         return tokenPrefix + JWT.create()
-                .withSubject(sub)
+                .withSubject("jwt")
                 .withExpiresAt(new Date(System.currentTimeMillis() + expireTime))
                 .sign(Algorithm.HMAC512(secret));
     }

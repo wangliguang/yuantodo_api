@@ -39,6 +39,8 @@ public class User implements Serializable {
     @NotNull(message = "mobile不能为空")
     private String mobile;
 
+    private String token;
+
     @NotNull(message = "password不能为空")
     private String password;
 
