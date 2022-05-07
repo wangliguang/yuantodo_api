@@ -1,8 +1,8 @@
 package com.guang.yuantodo.service.impl;
 
-import com.guang.yuantodo.entity.Todos;
-import com.guang.yuantodo.mapper.TodosMapper;
-import com.guang.yuantodo.service.ITodosService;
+import com.guang.yuantodo.entity.Todo;
+import com.guang.yuantodo.mapper.TodoMapper;
+import com.guang.yuantodo.service.ITodoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2022-05-06
  */
 @Service
-public class TodosServiceImpl extends ServiceImpl<TodosMapper, Todos> implements ITodosService {
+public class TodoServiceImpl extends ServiceImpl<TodoMapper, Todo> implements ITodoService {
 
 }

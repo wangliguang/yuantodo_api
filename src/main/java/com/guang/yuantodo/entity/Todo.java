@@ -2,7 +2,7 @@ package com.guang.yuantodo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 
 /**
@@ -13,7 +13,8 @@ import java.io.Serializable;
  * @author 王立广
  * @since 2022-05-06
  */
-public class Todos implements Serializable {
+@TableName("todos")
+public class Todo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -81,7 +82,7 @@ public class Todos implements Serializable {
 
     @Override
     public String toString() {
-        return "Todos{" +
+        return "Todo{" +
         "tId=" + tId +
         ", phone=" + phone +
         ", type=" + type +
