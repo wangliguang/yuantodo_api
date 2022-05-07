@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * <p>
@@ -36,11 +36,11 @@ public class Todo implements Serializable {
 
     private String content;
 
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDate createTime;
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    private Date createTime;
 
-    @TableField(fill = FieldFill.UPDATE)
-    private LocalDate updateTime;
+    @TableField(value = "update_time",fill = FieldFill.UPDATE)
+    private Date updateTime;
 
     @TableLogic(delval = "1", value = "0")
     private String deleted;
