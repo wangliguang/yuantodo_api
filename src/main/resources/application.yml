@@ -5,11 +5,15 @@ spring:
     username: root
     password: niepangg
 
+
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-
-
+jwt:
+  header: "Authorization" #token返回头部
+  tokenPrefix: "Bearer " #token前缀
+  secret: "qwertyuiop7418520" #密钥
+  expireTime: 1 #token有效时间 (分钟) 建议一小时以上
