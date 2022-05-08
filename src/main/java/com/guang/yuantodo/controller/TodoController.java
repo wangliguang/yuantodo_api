@@ -39,6 +39,16 @@ public class TodoController {
         return "";
     }
 
+    @PostMapping("/update")
+    @Transactional
+    public String update(@Validated @RequestBody Todo todo) throws Exception {
+        Integer row = todoMapper.updateById(todo);
+        if (0 == row) {
+            throw new Exception("该tId不存在");
+        }
+        return "";
+    }
+
     @PostMapping("/delete")
     @Transactional
     public String delete(@RequestBody Todo todo, HttpServletResponse response) {
