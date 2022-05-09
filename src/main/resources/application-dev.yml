@@ -1,0 +1,12 @@
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yuantodo
+    username: root
+    password: niepangg
+
+
+
+
+
