@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guang.yuantodo.entity.Todo;
 import com.guang.yuantodo.enums.TodoTypeEnum;
 import com.guang.yuantodo.mapper.TodoMapper;
-import com.guang.yuantodo.utils.JwtToken;
 import com.guang.yuantodo.utils.aop.AuthToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +30,7 @@ import java.util.List;
  * @since 2022-05-07
  */
 @RestController
-@RequestMapping("/todo")
+@RequestMapping("/api/todo")
 @Api(tags = "todo表")
 @AuthToken()
 public class TodoController {

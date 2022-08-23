@@ -35,7 +35,7 @@ import javax.xml.transform.Result;
  */
 @RestController
 @Api(tags = "用户表")
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
     @Autowired
     private UserMapper userMapper;
