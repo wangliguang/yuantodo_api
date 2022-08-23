@@ -5,19 +5,22 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guang.yuantodo.entity.Todo;
 import com.guang.yuantodo.enums.TodoTypeEnum;
 import com.guang.yuantodo.mapper.TodoMapper;
+import com.guang.yuantodo.utils.JwtToken;
+import com.guang.yuantodo.utils.aop.AuthToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.mybatis.logging.Logger;
+import org.mybatis.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -30,7 +33,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/todo")
 @Api(tags = "todo表")
+@AuthToken()
 public class TodoController {
+
+    private static final Logger logger = LoggerFactory.getLogger(TodoController.class);
 
     @Autowired
     private TodoMapper todoMapper;
@@ -65,7 +71,8 @@ public class TodoController {
     @ApiOperation("根据ID查询todo")
     @GetMapping("")
     @Transactional
-    public Todo queryById(Integer t_id, HttpServletResponse response) throws Exception {
+    public Todo queryById(Integer t_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
         Todo todo = todoMapper.selectById(t_id);
         if (null == todo) {
             throw new Exception("该todo不存在");

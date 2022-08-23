@@ -55,14 +55,15 @@ public class UserController {
     @ApiOperation("登录")
     @PostMapping("/login")
     @Transactional
-    public User login(@Validated @RequestBody User user, HttpServletResponse response) throws Exception {
+    public User login(String phone, String password, HttpServletResponse response) throws Exception {
+        User user = new User();
+        user.setMobile(phone);
+        user.setPassword(password);
         boolean isExist = userMapper.exists(new QueryWrapper<>(user));
         if (isExist) {
-            User userInfo = new User();
-            userInfo.setMobile(user.getMobile());
-            userInfo.setToken(JwtToken.createToken());
-            userMapper.update(userInfo, new QueryWrapper<>(user));
-            return userMapper.selectOne(new QueryWrapper<>(user));
+            User result = userMapper.selectOne(new QueryWrapper<>(user));
+            result.setToken(JwtToken.createToken());
+            return result;
         }
         throw new Exception(ReturnCode.USERNAME_NO_EXIST.getMessage());
     }
