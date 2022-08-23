@@ -43,7 +43,11 @@ public class TodoController {
     @ApiOperation("新建todo")
     @PostMapping("/create")
     @Transactional
-    public String create(@Validated @RequestBody Todo todo, HttpServletResponse response) {
+    public String create(TodoTypeEnum type, String content, HttpServletResponse response) {
+        Todo todo = new Todo();
+        todo.setType(type);
+        todo.setContent(content);
+        todo.setDone(0);
         todoMapper.insert(todo);
         return "";
     }
@@ -51,7 +55,12 @@ public class TodoController {
     @ApiOperation("更新todo")
     @PostMapping("/update")
     @Transactional
-    public String update(@Validated @RequestBody Todo todo) throws Exception {
+    public String update(TodoTypeEnum type, String content, Integer done, Integer t_id) throws Exception {
+        Todo todo = new Todo();
+        todo.setType(type);
+        todo.setTId(t_id);
+        todo.setContent(content);
+        todo.setDone(done);
         Integer row = todoMapper.updateById(todo);
         if (0 == row) {
             throw new Exception("该tId不存在");
@@ -62,8 +71,13 @@ public class TodoController {
     @ApiOperation("删除todo")
     @PostMapping("/delete")
     @Transactional
-    public String delete(@RequestBody Todo todo, HttpServletResponse response) {
-        todoMapper.delete(new QueryWrapper(todo));
+    public String delete(Integer t_id, HttpServletResponse response) throws Exception {
+        Todo todo = new Todo();
+        todo.setTId(t_id);
+        Integer row = todoMapper.delete(new QueryWrapper(todo));
+        if (0 == row) {
+            throw new Exception("该tId不存在");
+        }
         return "";
     }
 
