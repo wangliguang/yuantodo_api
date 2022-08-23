@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 
-@RestControllerAdvice
+@RestControllerAdvice("com.guang.yuantodo")
 public class ResponseAdvice implements ResponseBodyAdvice {
     @Autowired
     private ObjectMapper objectMapper;
@@ -24,6 +24,8 @@ public class ResponseAdvice implements ResponseBodyAdvice {
     @SneakyThrows
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+
+
         if(body instanceof String){
             return ResultData.success(body);
         }

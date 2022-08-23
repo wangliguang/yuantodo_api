@@ -10,6 +10,8 @@ import com.guang.yuantodo.mapper.UserMapper;
 import com.guang.yuantodo.utils.JwtToken;
 import com.guang.yuantodo.utils.response.ResultData;
 import com.guang.yuantodo.utils.response.ReturnCode;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -32,11 +34,13 @@ import javax.xml.transform.Result;
  * @since 2022-05-07
  */
 @RestController
+@Api(tags = "用户表")
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    @ApiOperation("注册")
     @PostMapping("/register")
     @Transactional
     public User register(@Validated @RequestBody User user, HttpServletResponse response) throws Exception {
@@ -48,6 +52,7 @@ public class UserController {
         return user;
     }
 
+    @ApiOperation("登录")
     @PostMapping("/login")
     @Transactional
     public User login(@Validated @RequestBody User user, HttpServletResponse response) throws Exception {

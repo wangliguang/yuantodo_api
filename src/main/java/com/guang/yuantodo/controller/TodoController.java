@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guang.yuantodo.entity.Todo;
 import com.guang.yuantodo.enums.TodoTypeEnum;
 import com.guang.yuantodo.mapper.TodoMapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -27,11 +29,13 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/todo")
+@Api(tags = "todo表")
 public class TodoController {
 
     @Autowired
     private TodoMapper todoMapper;
 
+    @ApiOperation("新建todo")
     @PostMapping("/create")
     @Transactional
     public String create(@Validated @RequestBody Todo todo, HttpServletResponse response) {
@@ -39,6 +43,7 @@ public class TodoController {
         return "";
     }
 
+    @ApiOperation("更新todo")
     @PostMapping("/update")
     @Transactional
     public String update(@Validated @RequestBody Todo todo) throws Exception {
@@ -49,6 +54,7 @@ public class TodoController {
         return "";
     }
 
+    @ApiOperation("删除todo")
     @PostMapping("/delete")
     @Transactional
     public String delete(@RequestBody Todo todo, HttpServletResponse response) {
@@ -56,6 +62,7 @@ public class TodoController {
         return "";
     }
 
+    @ApiOperation("根据ID查询todo")
     @GetMapping("")
     @Transactional
     public Todo queryById(Integer t_id, HttpServletResponse response) throws Exception {
@@ -66,6 +73,7 @@ public class TodoController {
         return todo;
     }
 
+    @ApiOperation("查询所有todo")
     @GetMapping("/queryAll")
     public HashMap queryAll(HttpServletResponse response) {
         List<Todo> allTodoList = todoMapper.selectList(null);
