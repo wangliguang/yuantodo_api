@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.lang.NonNullFields;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
@@ -39,6 +40,7 @@ public class User implements Serializable {
     @NotNull(message = "mobile不能为空")
     private String mobile;
 
+    @TableField(exist = false)
     private String token;
 
     @NotNull(message = "password不能为空")
