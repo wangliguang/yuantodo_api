@@ -2,6 +2,6 @@ spring:
   profiles: prod
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://43.140.252.199/yuantodo
+    url: jdbc:mysql://43.140.252.199:3306/yuantodo
     username: wangliguang
     password: Niepangg511472
