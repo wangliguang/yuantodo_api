@@ -7,6 +7,7 @@ import com.guang.yuantodo.entity.Todo;
 import com.guang.yuantodo.entity.User;
 import com.guang.yuantodo.mapper.TodoMapper;
 import com.guang.yuantodo.mapper.UserMapper;
+import com.guang.yuantodo.requestbody.RequestBodyUser;
 import com.guang.yuantodo.utils.JwtToken;
 import com.guang.yuantodo.utils.response.ResultData;
 import com.guang.yuantodo.utils.response.ReturnCode;
@@ -38,8 +39,7 @@ import javax.xml.transform.Result;
  */
 @RestController
 @Api(tags = "用户表")
-@RequestMapping("/api/user")
-@Validated
+@RequestMapping(value = "/api/user")
 public class UserController {
     @Autowired
     private UserMapper userMapper;
@@ -62,10 +62,10 @@ public class UserController {
     @ApiOperation("登录")
     @PostMapping("/login")
     @Transactional
-    public User login(@NotNull String mobile, @NotNull String password, HttpServletRequest request) throws Exception {
+    public User login(@Validated @RequestBody RequestBodyUser body, HttpServletRequest request) throws Exception {
         User user = new User();
-        user.setMobile(mobile);
-        user.setPassword(password);
+        user.setMobile(body.getMobile());
+        user.setPassword(body.getPassword());
         boolean isExist = userMapper.exists(new QueryWrapper<>(user));
         if (isExist) {
             User result = userMapper.selectOne(new QueryWrapper<>(user));

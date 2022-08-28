@@ -15,9 +15,11 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
+
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author 王立广
@@ -36,14 +38,11 @@ public class User implements Serializable {
 
     private String userName;
 
-    @Pattern(regexp = "^\\d{11}$", message = "请输入正确的手机号")
-    @NotNull(message = "mobile不能为空")
     private String mobile;
 
     @TableField(exist = false)
     private String token;
-
-    @NotNull(message = "password不能为空")
+    
     private String password;
 
     @TableField(value = "create_time", fill = FieldFill.INSERT)
