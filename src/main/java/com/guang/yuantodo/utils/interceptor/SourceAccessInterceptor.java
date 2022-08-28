@@ -15,6 +15,10 @@ public class SourceAccessInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+        if (request.getMethod().equals("OPTIONS")) {
+            return true;
+        }
+
         HandlerMethod handlerMethod = (HandlerMethod) handler;
 
         // 类上是否打注解
