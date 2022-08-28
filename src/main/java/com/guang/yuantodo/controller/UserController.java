@@ -47,10 +47,10 @@ public class UserController {
     @ApiOperation("注册")
     @PostMapping("/register")
     @Transactional
-    public User register(String phone, String password, HttpServletResponse response) throws Exception {
+    public User register(@Validated @RequestBody RequestBodyUser body, HttpServletResponse response) throws Exception {
         User user = new User();
-        user.setMobile(phone);
-        user.setPassword(password);
+        user.setMobile(body.getMobile());
+        user.setPassword(body.getPassword());
         boolean isExist = userMapper.exists(new QueryWrapper<>(user));
         if (isExist) {
             throw new Exception(ReturnCode.USERNAME_EXIST.getMessage());
