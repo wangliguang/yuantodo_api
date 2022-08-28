@@ -17,13 +17,13 @@ public class ResultData<T> {
 
     public static <T> ResultData success(T data) {
         ResultData<T> resultData = new ResultData();
-        resultData.setStatus(ReturnCode.RC100.getCode());
-        resultData.setMessage(ReturnCode.RC100.getMessage());
+        resultData.setStatus(CustomHttpStatus.RC100.getCode());
+        resultData.setMessage(CustomHttpStatus.RC100.getMessage());
         resultData.setData(data);
         return resultData;
     }
 
-    public static <T> ResultData<T> fail(ReturnCode returnCode) {
+    public static <T> ResultData<T> fail(CustomHttpStatus returnCode) {
         ResultData<T> resultData = new ResultData<>();
         resultData.setStatus(returnCode.getCode());
         resultData.setMessage(returnCode.getMessage());

@@ -1,6 +1,6 @@
 package com.guang.yuantodo.utils.response;
 
-public enum ReturnCode {
+public enum CustomHttpStatus {
     /**操作成功**/
     RC100(100,"操作成功"),
     /**操作失败**/
@@ -40,7 +40,7 @@ public enum ReturnCode {
     /**自定义描述**/
     private final String message;
 
-    ReturnCode(int code, String message){
+    CustomHttpStatus(int code, String message){
         this.code = code;
         this.message = message;
     }

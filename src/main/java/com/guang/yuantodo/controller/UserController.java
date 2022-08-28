@@ -1,33 +1,26 @@
 package com.guang.yuantodo.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.guang.yuantodo.entity.Todo;
 import com.guang.yuantodo.entity.User;
-import com.guang.yuantodo.mapper.TodoMapper;
 import com.guang.yuantodo.mapper.UserMapper;
 import com.guang.yuantodo.requestbody.RequestBodyUser;
 import com.guang.yuantodo.utils.JwtToken;
-import com.guang.yuantodo.utils.response.ResultData;
-import com.guang.yuantodo.utils.response.ReturnCode;
+import com.guang.yuantodo.utils.response.CustomException;
+import com.guang.yuantodo.utils.response.CustomHttpStatus;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotNull;
-import javax.xml.transform.Result;
 
 /**
  * <p>
@@ -53,7 +46,7 @@ public class UserController {
         user.setPassword(body.getPassword());
         boolean isExist = userMapper.exists(new QueryWrapper<>(user));
         if (isExist) {
-            throw new Exception(ReturnCode.USERNAME_EXIST.getMessage());
+            throw new Exception(CustomHttpStatus.USERNAME_EXIST.getMessage());
         }
         userMapper.insert(user);
         return user;
@@ -72,7 +65,7 @@ public class UserController {
             result.setToken(JwtToken.createToken());
             return result;
         }
-        throw new Exception(ReturnCode.USERNAME_NO_EXIST.getMessage());
+        throw new CustomException(CustomHttpStatus.USERNAME_NO_EXIST);
     }
 }
 

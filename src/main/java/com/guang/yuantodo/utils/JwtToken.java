@@ -3,13 +3,11 @@ package com.guang.yuantodo.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.guang.yuantodo.entity.User;
 import com.guang.yuantodo.utils.response.ResultData;
-import com.guang.yuantodo.utils.response.ReturnCode;
+import com.guang.yuantodo.utils.response.CustomHttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.function.Supplier;
 
 @Component
 public class JwtToken {
@@ -32,9 +30,9 @@ public class JwtToken {
                     .build()
                     .verify(token.replace(prefix, "")).getSubject();
         } catch (TokenExpiredException e){
-            throw new Exception(ResultData.fail(ReturnCode.AUTHENTICATION_FAILED).toString());
+            throw new Exception(ResultData.fail(CustomHttpStatus.AUTHENTICATION_FAILED).toString());
         } catch (Exception e){
-            throw new Exception(ResultData.fail(ReturnCode.AUTHENTICATION_FAILED).toString());
+            throw new Exception(ResultData.fail(CustomHttpStatus.AUTHENTICATION_FAILED).toString());
         }
     }
 
