@@ -54,7 +54,6 @@ public class UserController {
 
     @ApiOperation("登录")
     @PostMapping("/login")
-    @Transactional
     public User login(@Validated @RequestBody RequestBodyUser body, HttpServletRequest request) throws Exception {
         User user = new User();
         user.setMobile(body.getMobile());

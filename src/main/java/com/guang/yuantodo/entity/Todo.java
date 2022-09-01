@@ -5,6 +5,7 @@ import com.guang.yuantodo.enums.TodoTypeEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.lang.NonNull;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.validation.beanvalidation.*;
@@ -25,6 +26,7 @@ import java.util.Date;
 @Setter
 @Getter
 @NoArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class Todo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,7 +38,7 @@ public class Todo implements Serializable {
 
     private TodoTypeEnum type;
 
-    private Integer order;
+    private Integer sort;
 
     private Integer done;
 

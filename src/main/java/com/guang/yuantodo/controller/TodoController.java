@@ -1,11 +1,13 @@
 package com.guang.yuantodo.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guang.yuantodo.entity.Todo;
 import com.guang.yuantodo.entity.User;
 import com.guang.yuantodo.enums.TodoTypeEnum;
 import com.guang.yuantodo.mapper.TodoMapper;
+import com.guang.yuantodo.requestbody.RequestBodyTodo;
 import com.guang.yuantodo.utils.aop.AuthToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -95,9 +98,12 @@ public class TodoController {
     }
 
     @ApiOperation("查询所有todo")
-    @GetMapping("/queryAll")
-    public HashMap queryAll(@RequestBody Todo body, HttpServletResponse response) {
-        List<Todo> allTodoList = todoMapper.selectList(new QueryWrapper(body));
+    @PostMapping("/queryAll")
+    public HashMap queryAll(@Validated @RequestBody RequestBodyTodo body, HttpServletResponse response) {
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.between("create_time", body.getBeginDate(), body.getEndDate());
+        List<Todo> allTodoList = todoMapper.selectList(queryWrapper);
         List<Todo> imUrTodoList = new ArrayList<>();
         List<Todo> imNoUrTodoList = new ArrayList<>();
         List<Todo> noImUrTodoList = new ArrayList<>();
