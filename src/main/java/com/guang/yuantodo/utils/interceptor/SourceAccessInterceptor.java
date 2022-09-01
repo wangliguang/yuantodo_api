@@ -30,12 +30,12 @@ public class SourceAccessInterceptor implements HandlerInterceptor {
         AuthToken methodAnnotation = handlerMethod.getMethodAnnotation(AuthToken.class);
 
         if (methodsAnnotationPresent && methodAnnotation.auth()) {
-            JwtToken.validateToken(request.getHeader("Authorization"));
+            JwtToken.validateToken(request.getHeader("authorization"));
             return true;
         }
 
         if (!methodsAnnotationPresent && clazzAnnotationPresent && clazzAnnotation.auth()) {
-            JwtToken.validateToken(request.getHeader("Authorization"));
+            JwtToken.validateToken(request.getHeader("authorization"));
             return true;
         }
 

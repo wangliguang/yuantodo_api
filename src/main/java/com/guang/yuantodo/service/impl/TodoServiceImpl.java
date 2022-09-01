@@ -4,6 +4,7 @@ import com.guang.yuantodo.entity.Todo;
 import com.guang.yuantodo.mapper.TodoMapper;
 import com.guang.yuantodo.service.ITodoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**

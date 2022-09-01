@@ -3,6 +3,7 @@ package com.guang.yuantodo.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.guang.yuantodo.utils.response.CustomException;
 import com.guang.yuantodo.utils.response.ResultData;
 import com.guang.yuantodo.utils.response.CustomHttpStatus;
 import org.springframework.stereotype.Component;
@@ -25,14 +26,17 @@ public class JwtToken {
     }
 
     public static String validateToken(String token) throws Exception {
+        if (null == token) {
+            token = "";
+        }
         try {
             return JWT.require(Algorithm.HMAC512(secret))
                     .build()
                     .verify(token.replace(prefix, "")).getSubject();
         } catch (TokenExpiredException e){
-            throw new Exception(ResultData.fail(CustomHttpStatus.AUTHENTICATION_FAILED).toString());
+            throw new CustomException(CustomHttpStatus.AUTHENTICATION_FAILED);
         } catch (Exception e){
-            throw new Exception(ResultData.fail(CustomHttpStatus.AUTHENTICATION_FAILED).toString());
+            throw new Exception(e);
         }
     }
 

@@ -3,6 +3,7 @@ package com.guang.yuantodo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guang.yuantodo.entity.Todo;
+import com.guang.yuantodo.entity.User;
 import com.guang.yuantodo.enums.TodoTypeEnum;
 import com.guang.yuantodo.mapper.TodoMapper;
 import com.guang.yuantodo.utils.aop.AuthToken;
@@ -95,8 +96,8 @@ public class TodoController {
 
     @ApiOperation("查询所有todo")
     @GetMapping("/queryAll")
-    public HashMap queryAll(HttpServletResponse response) {
-        List<Todo> allTodoList = todoMapper.selectList(null);
+    public HashMap queryAll(@RequestBody Todo body, HttpServletResponse response) {
+        List<Todo> allTodoList = todoMapper.selectList(new QueryWrapper(body));
         List<Todo> imUrTodoList = new ArrayList<>();
         List<Todo> imNoUrTodoList = new ArrayList<>();
         List<Todo> noImUrTodoList = new ArrayList<>();

@@ -36,6 +36,8 @@ public class Todo implements Serializable {
 
     private TodoTypeEnum type;
 
+    private Integer order;
+
     private Integer done;
 
     @NotNull(message = "content为必填项")
