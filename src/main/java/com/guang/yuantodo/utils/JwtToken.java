@@ -34,9 +34,9 @@ public class JwtToken {
                     .build()
                     .verify(token.replace(prefix, "")).getSubject();
         } catch (TokenExpiredException e){
-            throw new CustomException(CustomHttpStatus.AUTHENTICATION_FAILED);
+            throw new CustomException(CustomHttpStatus.AUTHENTICATION_EXPIRE);
         } catch (Exception e){
-            throw new Exception(e);
+            throw new CustomException(CustomHttpStatus.AUTHENTICATION_FAILED);
         }
     }
 
