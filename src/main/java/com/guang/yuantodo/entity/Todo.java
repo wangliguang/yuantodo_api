@@ -38,7 +38,7 @@ public class Todo implements Serializable {
 
     private TodoTypeEnum type;
 
-    private Integer sort;
+    private Double sort;
 
     private Integer done;
 
@@ -50,6 +50,10 @@ public class Todo implements Serializable {
 
     @TableField(value = "update_time",fill = FieldFill.UPDATE)
     private Date updateTime;
+
+    @TableField(value = "plan_time",fill = FieldFill.INSERT)
+    private Date planTime;
+
 
     @TableLogic(delval = "1", value = "0")
     private String deleted;

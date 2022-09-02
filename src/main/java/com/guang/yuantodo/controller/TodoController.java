@@ -7,6 +7,7 @@ import com.guang.yuantodo.entity.Todo;
 import com.guang.yuantodo.entity.User;
 import com.guang.yuantodo.enums.TodoTypeEnum;
 import com.guang.yuantodo.mapper.TodoMapper;
+import com.guang.yuantodo.requestbody.RequestBodyCreateTodo;
 import com.guang.yuantodo.requestbody.RequestBodyTodo;
 import com.guang.yuantodo.requestbody.RequestBodyUpdateTodo;
 import com.guang.yuantodo.utils.aop.AuthToken;
@@ -48,13 +49,15 @@ public class TodoController {
     @ApiOperation("新建todo")
     @PostMapping("/create")
     @Transactional
-    public String create(TodoTypeEnum type, String content, HttpServletResponse response) {
+    public Integer create(@Validated @RequestBody RequestBodyCreateTodo body, HttpServletResponse response) {
         Todo todo = new Todo();
-        todo.setType(type);
-        todo.setContent(content);
+        todo.setType(body.getType());
+        todo.setContent(body.getContent());
+        todo.setSort(body.getSort());
         todo.setDone(0);
         todoMapper.insert(todo);
-        return "";
+        return todo.getTId();
+
     }
 
     @ApiOperation("更新todo")
@@ -66,6 +69,7 @@ public class TodoController {
         todo.setTId(body.getT_id());
         todo.setContent(body.getContent());
         todo.setDone(body.getDone());
+        todo.setSort(body.getSort());
         Integer row = todoMapper.updateById(todo);
         if (0 == row) {
             throw new Exception("该tId不存在");
@@ -88,7 +92,6 @@ public class TodoController {
 
     @ApiOperation("根据ID查询todo")
     @GetMapping("")
-    @Transactional
     public Todo queryById(Integer t_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         Todo todo = todoMapper.selectById(t_id);
@@ -104,6 +107,7 @@ public class TodoController {
 
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.between("create_time", body.getBeginDate(), body.getEndDate());
+        queryWrapper.orderByAsc("sort");
         List<Todo> allTodoList = todoMapper.selectList(queryWrapper);
         List<Todo> imUrTodoList = new ArrayList<>();
         List<Todo> imNoUrTodoList = new ArrayList<>();

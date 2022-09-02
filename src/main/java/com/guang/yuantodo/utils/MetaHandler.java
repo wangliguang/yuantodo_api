@@ -15,7 +15,7 @@ public class MetaHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
         //根据名称设置属性值
         this.setFieldValByName("createTime",new Date(),metaObject);
-        this.setFieldValByName("updateTime",new Date(),metaObject);
+        this.setFieldValByName("planTime",new Date(),metaObject);
     }
     //使用mp实现修改操作,这个方法会执行
     @Override

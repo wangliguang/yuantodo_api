@@ -5,24 +5,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Setter
 @Getter
-public class RequestBodyUpdateTodo {
+public class RequestBodyCreateTodo {
 
     private TodoTypeEnum type;
 
+    @NotNull(message = "content必传")
     private String content;
 
-    private Integer done;
-
-    @NotNull(message = "t_id必传")
-    Integer t_id;
-
-    private Date planTime;
-
-
+    @NotNull(message = "sort必传")
     private Double sort;
-
 }
