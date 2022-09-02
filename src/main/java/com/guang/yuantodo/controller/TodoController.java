@@ -8,6 +8,7 @@ import com.guang.yuantodo.entity.User;
 import com.guang.yuantodo.enums.TodoTypeEnum;
 import com.guang.yuantodo.mapper.TodoMapper;
 import com.guang.yuantodo.requestbody.RequestBodyTodo;
+import com.guang.yuantodo.requestbody.RequestBodyUpdateTodo;
 import com.guang.yuantodo.utils.aop.AuthToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -59,12 +60,12 @@ public class TodoController {
     @ApiOperation("更新todo")
     @PostMapping("/update")
     @Transactional
-    public String update(TodoTypeEnum type, String content, Integer done, Integer t_id) throws Exception {
+    public String update(@Validated @RequestBody RequestBodyUpdateTodo body) throws Exception {
         Todo todo = new Todo();
-        todo.setType(type);
-        todo.setTId(t_id);
-        todo.setContent(content);
-        todo.setDone(done);
+        todo.setType(body.getType());
+        todo.setTId(body.getT_id());
+        todo.setContent(body.getContent());
+        todo.setDone(body.getDone());
         Integer row = todoMapper.updateById(todo);
         if (0 == row) {
             throw new Exception("该tId不存在");
