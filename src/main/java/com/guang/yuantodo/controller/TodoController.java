@@ -8,6 +8,7 @@ import com.guang.yuantodo.entity.User;
 import com.guang.yuantodo.enums.TodoTypeEnum;
 import com.guang.yuantodo.mapper.TodoMapper;
 import com.guang.yuantodo.requestbody.RequestBodyCreateTodo;
+import com.guang.yuantodo.requestbody.RequestBodyDragTodo;
 import com.guang.yuantodo.requestbody.RequestBodyTodo;
 import com.guang.yuantodo.requestbody.RequestBodyUpdateTodo;
 import com.guang.yuantodo.utils.aop.AuthToken;
@@ -72,6 +73,30 @@ public class TodoController {
         todo.setSort(body.getSort());
         Integer row = todoMapper.updateById(todo);
         if (0 == row) {
+            throw new Exception("该tId不存在");
+        }
+        return "";
+    }
+
+    @ApiOperation("拖动位置")
+    @PostMapping("/dragSort")
+    @Transactional
+    public String dragSort(@Validated @RequestBody RequestBodyDragTodo body) throws Exception {
+        Todo sourceTodo = new Todo();
+        sourceTodo.setTId(body.getSourceTodoId());
+        sourceTodo.setType(body.getSourceTodoType());
+        sourceTodo.setSort(body.getSourceTodoSort());
+        Integer sourceRow = todoMapper.updateById(sourceTodo);
+        if (0 == sourceRow) {
+            throw new Exception("该tId不存在");
+        }
+
+        Todo DestTodo = new Todo();
+        DestTodo.setTId(body.getDestTodoId());
+        DestTodo.setType(body.getDestTodoType());
+        DestTodo.setSort(body.getDestTodoSort());
+        Integer destRow = todoMapper.updateById(sourceTodo);
+        if (0 == destRow) {
             throw new Exception("该tId不存在");
         }
         return "";
