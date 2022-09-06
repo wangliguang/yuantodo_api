@@ -1,14 +1,12 @@
 package com.guang.yuantodo.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guang.yuantodo.entity.Todo;
-import com.guang.yuantodo.entity.User;
 import com.guang.yuantodo.enums.TodoTypeEnum;
 import com.guang.yuantodo.mapper.TodoMapper;
 import com.guang.yuantodo.requestbody.RequestBodyCreateTodo;
-import com.guang.yuantodo.requestbody.RequestBodyDragTodo;
+import com.guang.yuantodo.requestbody.RequestBodyDeleteTodo;
 import com.guang.yuantodo.requestbody.RequestBodyTodo;
 import com.guang.yuantodo.requestbody.RequestBodyUpdateTodo;
 import com.guang.yuantodo.utils.aop.AuthToken;
@@ -24,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -81,9 +78,9 @@ public class TodoController {
     @ApiOperation("删除todo")
     @PostMapping("/delete")
     @Transactional
-    public String delete(Integer t_id, HttpServletResponse response) throws Exception {
+    public String delete(@Validated @RequestBody RequestBodyDeleteTodo body, HttpServletResponse response) throws Exception {
         Todo todo = new Todo();
-        todo.setTId(t_id);
+        todo.setTId(body.getTId());
         Integer row = todoMapper.delete(new QueryWrapper(todo));
         if (0 == row) {
             throw new Exception("该tId不存在");
@@ -107,7 +104,7 @@ public class TodoController {
     public HashMap queryAll(@Validated @RequestBody RequestBodyTodo body, HttpServletResponse response) {
 
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.between("create_time", body.getBeginDate(), body.getEndDate());
+        queryWrapper.between("plan_time", body.getBeginDate(), body.getEndDate());
         queryWrapper.orderByAsc("sort");
         List<Todo> allTodoList = todoMapper.selectList(queryWrapper);
         List<Todo> imUrTodoList = new ArrayList<>();
