@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class RequestBodyTodo {
+public class RequestBodyQueryTodoList {
 
     private static final long serialVersionUID = 1L;
 

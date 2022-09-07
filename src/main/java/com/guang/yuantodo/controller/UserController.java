@@ -61,7 +61,7 @@ public class UserController {
         boolean isExist = userMapper.exists(new QueryWrapper<>(user));
         if (isExist) {
             User result = userMapper.selectOne(new QueryWrapper<>(user));
-            result.setToken(JwtToken.createToken());
+            result.setToken(JwtToken.createToken(result.getUId()));
             return result;
         }
         throw new CustomException(CustomHttpStatus.USERNAME_NO_EXIST);

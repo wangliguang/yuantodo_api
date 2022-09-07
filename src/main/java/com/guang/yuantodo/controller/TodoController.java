@@ -3,12 +3,14 @@ package com.guang.yuantodo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guang.yuantodo.entity.Todo;
+import com.guang.yuantodo.entity.User;
 import com.guang.yuantodo.enums.TodoTypeEnum;
 import com.guang.yuantodo.mapper.TodoMapper;
 import com.guang.yuantodo.requestbody.RequestBodyCreateTodo;
 import com.guang.yuantodo.requestbody.RequestBodyDeleteTodo;
-import com.guang.yuantodo.requestbody.RequestBodyTodo;
+import com.guang.yuantodo.requestbody.RequestBodyQueryTodoList;
 import com.guang.yuantodo.requestbody.RequestBodyUpdateTodo;
+import com.guang.yuantodo.utils.JwtToken;
 import com.guang.yuantodo.utils.aop.AuthToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,9 +49,14 @@ public class TodoController {
     @ApiOperation("新建todo")
     @PostMapping("/create")
     @Transactional
-    public Integer create(@Validated @RequestBody RequestBodyCreateTodo body, HttpServletResponse response) {
+    public Integer create(@Validated @RequestBody RequestBodyCreateTodo body, HttpServletRequest req) throws Exception {
+
+        String token = req.getHeader("authorization");
+        Integer uId = JwtToken.getUid(token);
+
         Todo todo = new Todo();
         todo.setType(body.getType());
+        todo.setUId(uId);
         todo.setContent(body.getContent());
         todo.setSort(body.getSort());
         todo.setDone(0);
@@ -101,9 +108,15 @@ public class TodoController {
 
     @ApiOperation("查询所有todo")
     @PostMapping("/queryAll")
-    public HashMap queryAll(@Validated @RequestBody RequestBodyTodo body, HttpServletResponse response) {
+    public HashMap queryAll(@Validated @RequestBody RequestBodyQueryTodoList body, HttpServletRequest req) throws Exception {
 
-        QueryWrapper queryWrapper = new QueryWrapper();
+        String token = req.getHeader("authorization");
+        Integer uId = JwtToken.getUid(token);
+
+
+        Todo queryTodo = new Todo();
+        queryTodo.setUId(uId);
+        QueryWrapper queryWrapper = new QueryWrapper(queryTodo);
         queryWrapper.between("plan_time", body.getBeginDate(), body.getEndDate());
         queryWrapper.orderByAsc("sort");
         List<Todo> allTodoList = todoMapper.selectList(queryWrapper);

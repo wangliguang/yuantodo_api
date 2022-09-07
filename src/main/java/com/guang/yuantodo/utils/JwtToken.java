@@ -18,12 +18,29 @@ public class JwtToken {
     private static String prefix = "Bearn ";
 
 
-    public static String createToken(){
+    public static String createToken(Integer uid){
         return  JWT.create()
                 .withSubject("jwt")
+                .withClaim("uid", uid)
                 .withExpiresAt(new Date(System.currentTimeMillis() + expireTime))
                 .sign(Algorithm.HMAC512(secret));
     }
+
+    public static Integer getUid(String token) throws Exception {
+        if (null == token) {
+            token = "";
+        }
+        try {
+            return JWT.require(Algorithm.HMAC512(secret))
+                    .build()
+                    .verify(token.replace(prefix, "")).getClaim("uid").asInt();
+        } catch (TokenExpiredException e){
+            throw new CustomException(CustomHttpStatus.AUTHENTICATION_EXPIRE);
+        } catch (Exception e){
+            throw new CustomException(CustomHttpStatus.AUTHENTICATION_FAILED);
+        }
+    }
+
 
     public static String validateToken(String token) throws Exception {
         if (null == token) {
