@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 public class RequestBodyCreateTodo {
 
+    @NotNull(message = "type必传")
     private TodoTypeEnum type;
 
     @NotNull(message = "content必传")
