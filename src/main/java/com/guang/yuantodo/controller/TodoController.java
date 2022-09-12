@@ -107,8 +107,8 @@ public class TodoController {
     }
 
     @ApiOperation("查询所有todo")
-    @PostMapping("/queryAll")
-    public HashMap queryAll(@Validated @RequestBody RequestBodyQueryTodoList body, HttpServletRequest req) throws Exception {
+    @PostMapping("/queryTodoListByDateZone")
+    public HashMap queryTodoListByDateZone(@Validated @RequestBody RequestBodyQueryTodoList body, HttpServletRequest req) throws Exception {
 
         String token = req.getHeader("authorization");
         Integer uId = JwtToken.getUid(token);
